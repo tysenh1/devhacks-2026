@@ -1,0 +1,24 @@
+# --- General ---
+node_modules/
+.DS_Store
+*.log
+.env
+.env.local
+
+# --- Backend (Express & SQLite) ---
+backend/users.db
+backend/users.db-journal
+backend/dist/
+
+# --- Mobile (Expo / React Native) ---
+mobile/.expo/
+mobile/dist/
+mobile/web-build/
+mobile/android/
+mobile/ios/
+
+# --- TypeScript ---
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+*/node_modules/

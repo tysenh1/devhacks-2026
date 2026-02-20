@@ -1,0 +1,19 @@
+{
+  "name": "coding",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-backend": "cd backend && node server.ts",
+    "start-mobile": "cd mobile && npx expo start",
+    "dev": "concurrently \"npm run start-backend\" \"npm run mobile\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
