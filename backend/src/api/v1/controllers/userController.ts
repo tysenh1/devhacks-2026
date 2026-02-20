@@ -1,5 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import * as userService from '../services/userService.ts';
+import { successResponse } from '../models/responseModel.ts';
 
 export const login = async (
   req: Request,
@@ -9,7 +10,7 @@ export const login = async (
   try {
 
     const user = await userService.loginUser(req.body)
-    res.status(200).json(user)
+    res.status(200).json(successResponse(user))
   } catch (err) {
     next(err)
   }
