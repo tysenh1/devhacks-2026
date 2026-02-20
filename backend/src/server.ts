@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import db from './database';
+import db from './database.ts';
 import userRoutes from './api/v1/routes/userRoutes.ts'
 
 const app = express();
