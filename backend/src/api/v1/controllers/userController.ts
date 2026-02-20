@@ -6,5 +6,11 @@ export const login = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const user = await userService.loginUser(req.body)
+  try {
+
+    const user = await userService.loginUser(req.body)
+    res.status(200).json(user)
+  } catch (err) {
+    next(err)
+  }
 }
