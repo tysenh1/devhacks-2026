@@ -7,7 +7,7 @@ import errorHandler from './api/v1/middleware/errorHandler.ts';
 const app = express();
 const PORT = 3000;
 // const IP_ADDR = '10.20.191.29'
-const IP_ADDR = '10.153.221.69'
+// const IP_ADDR = '10.153.221.69'
 
 app.use(cors());
 app.use(express.json());
@@ -20,6 +20,6 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get('api/v1/users', userRoutes)
 
-app.listen(PORT, IP_ADDR, () => {
-  console.log(`🚀 Server running on ${IP_ADDR}:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on PORT ${PORT}`);
 });
