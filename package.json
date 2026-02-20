@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-backend": "cd backend && node server.ts",
+    "start-backend": "cd backend && tsx watch src/server.ts",
     "start-mobile": "cd mobile && npx expo start",
-    "dev": "concurrently \"npm run start-backend\" \"npm run mobile\""
+    "dev": "concurrently \"npm run start-backend\" \"npm run start-mobile\""
   },
   "keywords": [],
   "author": "",
@@ -15,5 +15,8 @@
   "type": "commonjs",
   "devDependencies": {
     "concurrently": "^9.2.1"
+  },
+  "dependencies": {
+    "tsx": "^4.21.0"
   }
 }
