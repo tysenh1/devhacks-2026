@@ -31,6 +31,14 @@ CREATE TABLE IF NOT EXISTS vaccine_records (
 
 -- BRIDGE TABLES
 
+CREATE TABLE IF NOT EXISTS allergies (
+    id TEXT PRIMARY KEY,
+    patient_id TEXT,
+    vaccine_id TEXT,
+    FOREIGN KEY(patient_id) REFERENCES patients(id),
+    FOREIGN KEY(vaccine_id) REFERENCES vaccines(id)
+);
+
 CREATE TABLE IF NOT EXISTS vaccine_rules (
     id TEXT PRIMARY KEY,
     vaccine_id TEXT,

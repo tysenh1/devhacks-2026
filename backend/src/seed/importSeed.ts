@@ -17,6 +17,7 @@ const tables = [
   'patients',
   'conditions',
   'vaccines',
+  'allergies'
 ]
 
 async function seedDb() {
