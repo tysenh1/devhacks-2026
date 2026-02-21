@@ -30,7 +30,7 @@ function Register() {
       <form action="" onSubmit={validateRegister}>
         <div className="flex flex-col items-center justify-center">
           <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-            <legend className="fieldset-legend">Registration</legend>
+            <legend className="fieldset-legend text-lg">Registration</legend>
 
             <label className="label">First Name:</label>
             <input
@@ -75,7 +75,8 @@ function Register() {
                   fill="none"
                   stroke="currentColor"
                 >
-                  <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path>
+                  <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 
+                  0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path>
                   <circle
                     cx="16.5"
                     cy="7.5"
@@ -142,7 +143,7 @@ function Register() {
               placeholder="PHIN Number"
             />
 
-            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl:btn btn-neutral">
+            <button className="btn btn-primary mt-5">
               Submit
             </button>
           </fieldset>
