@@ -15,7 +15,7 @@ export function useUser() {
 	}
 
 	const createUser = async (pat: Patients): Promise<boolean> => {
-		const patient: Patients | null = await userRepo.createUser(pat)
+		const patient: SafePatients | null = await userRepo.createUser(pat)
 
 		if (patient) {
 			setUser(patient)
