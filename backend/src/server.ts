@@ -1,22 +1,25 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import db from './database';
+// import userRoutes from './api/v1/routes/userRoutes.ts'
+import userRoutes from './api/v1/routes/userRoutes.ts'
+import errorHandler from './api/v1/middleware/errorHandler.ts';
 
 const app = express();
 const PORT = 3000;
-const IP_ADDR = '10.20.191.29'
+// const IP_ADDR = '10.20.191.29'
+// const IP_ADDR = '10.153.221.69'
 
-app.use(cors()); // Allows your mobile app to connect
-app.use(express.json()); // Parses JSON from your app
+app.use(cors());
+app.use(express.json());
+
+app.use(errorHandler);
 
 app.get('/', (req: Request, res: Response) => {
   res.send({ message: "Backend is online!" });
 });
 
-app.get('/test', (req: Request, res: Response) => {
-  res.send({ message: db.exec("SELECT * FROM patients;") })
-})
+app.use('/api/v1/users', userRoutes)
 
-app.listen(PORT, IP_ADDR, () => {
-  console.log(`🚀 Server running on ${IP_ADDR}:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on PORT ${PORT}`);
 });
