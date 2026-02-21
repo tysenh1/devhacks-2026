@@ -7,6 +7,9 @@ export function useUser() {
   const [eligibleVaccines, setEligibleVaccines] = useState<EligibleVaccines[] | null>(null)
   const [upcoming, setUpcoming] = useState<Upcoming[] | null>(null)
 
+  const [userRecords, setUserRecords] = useState<VaccineRecords | null>(null)
+
+
   useEffect(() => {
     console.log(user)
   }, [user])
@@ -40,12 +43,19 @@ export function useUser() {
     }
   }
 
+
   const fetchUpcoming = async (): Promise<void> => {
     if (!user) return;
     const upcoming: Upcoming[] | null = await userRepo.fetchUpcoming(user.id)
 
     if (upcoming) {
       setUpcoming(upcoming)
+    }
+  }
+  const fetchRecords = async (id: string): Promise<void> => {
+    const vaccines: VaccineRecords | null = await userRepo.fetchRecords(id)
+    if (vaccines) {
+      setUserRecords(vaccines)
     }
   }
 
@@ -65,7 +75,10 @@ export function useUser() {
     setEligibleVaccines,
     uploadUserFile,
     fetchUpcoming,
-    upcoming
+    upcoming,
+    fetchVaccines,
+    fetchRecords,
+    userRecords
   })
 
 }
