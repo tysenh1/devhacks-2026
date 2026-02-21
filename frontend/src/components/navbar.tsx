@@ -1,6 +1,8 @@
 import { Syringe, UserRound } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
+  const navigate = useNavigate();
   return (
     <div className="navbar bg-base-100 shadow-sm w-full">
       <div className="navbar-start">
@@ -27,10 +29,10 @@ function Navbar() {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a>Eligible Vaccines</a>
+              <a onClick={() => navigate('/eligible')}>Eligible Vaccines</a>
             </li>
             <li>
-              <a>Upcoming Vaccines</a>
+              <a onClick={() => navigate('/upcoming')}>Upcoming Vaccines</a>
             </li>
           </ul>
         </div>

@@ -16,6 +16,8 @@ router.post('/register', userController.register)
 //router.get('/info', userController.info)
 router.get('/eligibility/:id', userController.vaccineEligiblityCheck)
 
+router.get('/upcoming/:id', userController.getUpcoming)
+
 router.get('/', userController.test)
 
 export default router

@@ -12,7 +12,7 @@ import type { SafePatients } from "../../shared/types";
 
 function App() {
 
-  const { user, logInUser, createUser, fetchVaccines, eligibleVaccines, setEligibleVaccines } = useUser()
+  const { user, logInUser, createUser, fetchVaccines, eligibleVaccines, setEligibleVaccines, fetchUpcoming, upcoming } = useUser()
   return (
     <BrowserRouter>
       <Routes>
@@ -24,7 +24,7 @@ function App() {
 
         <Route path="vaccine-info" element={<VaccineInformation />} />
         <Route path="upload" element={<UploadPatientFile />} />
-        <Route path="upcoming" element={<Upcoming />} />
+        <Route path="upcoming" element={<Upcoming fetchUpcoming={fetchUpcoming} upcomingVaccines={upcoming} user={user as SafePatients} />} />
       </Routes>
     </BrowserRouter>
   );

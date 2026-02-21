@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import type { EligibleVaccines, Patients, SafePatients, VaccineRecords } from "../../../shared/types"
+import type { EligibleVaccines, Patients, SafePatients, VaccineRecords, Upcoming } from "../../../shared/types"
 import * as userRepo from '../apis/userRepo'
 
 export function useUser() {
   const [user, setUser] = useState<SafePatients | null>(null)
   const [eligibleVaccines, setEligibleVaccines] = useState<EligibleVaccines[] | null>(null)
+  const [upcoming, setUpcoming] = useState<Upcoming[] | null>(null)
 
   useEffect(() => {
     console.log(user)
@@ -39,6 +40,15 @@ export function useUser() {
     }
   }
 
+  const fetchUpcoming = async (): Promise<void> => {
+    if (!user) return;
+    const upcoming: Upcoming[] | null = await userRepo.fetchUpcoming(user.id)
+
+    if (upcoming) {
+      setUpcoming(upcoming)
+    }
+  }
+
   const uploadUserFile = async (file: File) => {
     const success: boolean = await userRepo.uploadUserData(file)
 
@@ -52,8 +62,10 @@ export function useUser() {
     createUser,
     fetchVaccines,
     eligibleVaccines,
-    setEligibleVaccines
-    uploadUserFile
+    setEligibleVaccines,
+    uploadUserFile,
+    fetchUpcoming,
+    upcoming
   })
 
 }
