@@ -28,11 +28,11 @@ function Navbar() {
             tabIndex={-1}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <a onClick={() => navigate('/eligible')}>Eligible Vaccines</a>
+            <li onClick={() => navigate('/eligible')}>
+              <a>Eligible Vaccines</a>
             </li>
-            <li>
-              <a onClick={() => navigate('/upcoming')}>Upcoming Vaccines</a>
+            <li onClick={() => navigate('/upcoming')}>
+              <a>Upcoming Vaccines</a>
             </li>
           </ul>
         </div>

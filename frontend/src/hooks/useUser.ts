@@ -76,7 +76,6 @@ export function useUser() {
     uploadUserFile,
     fetchUpcoming,
     upcoming,
-    fetchVaccines,
     fetchRecords,
     userRecords
   })
