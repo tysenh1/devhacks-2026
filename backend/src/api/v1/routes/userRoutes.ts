@@ -13,7 +13,8 @@ router.post('/update', upload.single('file'), userController.updateHealthInfo)
 
 router.post('/register', userController.register)
 
-//router.get('/info', userController.info)
+router.get('/info/:id', userController.getHealthInfo)
+
 router.get('/eligibility/:id', userController.vaccineEligiblityCheck)
 
 router.get('/', userController.test)

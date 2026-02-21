@@ -1,6 +1,6 @@
 import db from '../../../database.ts';
 import argon2 from 'argon2';
-import { type SafePatients, type Patients } from '../../../../../shared/types.ts'
+import { type SafePatients, type Patients, VaccineRecords } from '../../../../../shared/types.ts'
 
 import fs from 'node:fs'
 import * as csv from 'fast-csv'
@@ -79,6 +79,17 @@ INSERT INTO vaccine_records (id, patient_id, vaccine_id, admin_date, dose_number
   } catch (err) {
     throw new Error('Failed to update patient data')
   }
+
+}
+
+export const getHealthInfo = async (id: string | string[]): Promise<VaccineRecords | null> => {
+  const record = db.prepare(`SELECT * FROM vaccine_records WHERE patient_id  = ?`).get(id) as VaccineRecords
+
+  if (record) {
+    return null
+  }
+
+  return record
 
 }
 

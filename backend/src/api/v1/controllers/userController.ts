@@ -41,8 +41,8 @@ export const getHealthInfo = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { email } = req.params
-    const info = await userService.getHealthInfo(email)
+    const { id } = req.params
+    const info = await userService.getHealthInfo(id)
     res.status(200).json(info);
   } catch (err) {
     next(err)
