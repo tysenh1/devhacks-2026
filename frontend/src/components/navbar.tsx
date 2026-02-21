@@ -38,7 +38,7 @@ function Navbar() {
           Open drawer
         </label>
         <a className="btn btn-ghost text-xl">
-          <Syringe /> VaxScene
+          <Syringe /> Immunify
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
