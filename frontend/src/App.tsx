@@ -3,6 +3,7 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Eligible from "./pages/eligible";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="profile" element={<PatientInformation />} />
+        <Route path="eligible" element={<Eligible/>} />
       </Routes>
     </BrowserRouter>
   );
