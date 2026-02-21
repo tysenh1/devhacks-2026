@@ -38,30 +38,47 @@ export const loginUser = async (user: AccountLogin) => {
 }
 
 export const updateHealthInfo = async (filePath: string) => {
-  const rows: any[] = [];
+  const conditionRows: any[] = [];
+  const recordsRows: any[] = [];
 
   const stream = fs.createReadStream(filePath)
     .pipe(csv.parse({ headers: true, trim: true }))
 
   for await (const row of stream) {
-    rows.push({
+    conditionRows.push({
       id: randomUUID(),
       condition_id: row.condition_id,
       patient_id: row.patient_id,
       diagnosis_date: row.diagnosis_date,
       is_active: row.is_active
     })
+    recordsRows.push({
+      id: randomUUID(),
+      patient_id: row.patient_id,
+      vaccine_id: row.vaccine_id,
+      admin_date: row.admin_date,
+      dose_number: row.dose_number
+    })
   }
 
-  const insert = db.prepare(`
+  const conditionInsert = db.prepare(`
 INSERT INTO patient_conditions (id, condition_id, patient_id, diagnosis_date, is_active) VALUES (@id, @condition_id, @patient_id, @diagnosis_date, @is_active) 
 `)
-  const insertMany = db.transaction((data) => {
-    for (const p of data) insert.run(p)
+  const recordInsert = db.prepare(`
+INSERT INTO vaccine_records (id, patient_id, vaccine_id, admin_date, dose_number) VALUES (@id, @patient_id, @vaccine_id, @admin_date, @dose_number)
+`)
+  const performUpdate = db.transaction((conditions, records) => {
+    for (const p of conditions) conditionInsert.run(p)
+    for (const r of records) recordInsert.run(r)
   })
 
-  insertMany(rows)
-  return;
+  try {
+
+    performUpdate(conditionRows, recordsRows)
+    return
+  } catch (err) {
+    throw new Error('Failed to update patient data')
+  }
 
 }
 
