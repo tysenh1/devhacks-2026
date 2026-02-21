@@ -36,6 +36,8 @@ export interface VaccineRecords {
   done_number?: number;
 }
 
+export interface EligibleVaccines extends Vaccines, VaccineRecords { }
+
 export interface VaccineRules {
   id: string;
   vaccine_id: string;

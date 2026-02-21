@@ -10,6 +10,8 @@ backend/src/users.db
 backend/users.db-journal
 backend/dist/
 
+**/users.db
+*/users.db
 # --- Mobile (Expo / React Native) ---
 mobile/.expo/
 mobile/dist/

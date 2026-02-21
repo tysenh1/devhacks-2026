@@ -1,4 +1,4 @@
-import type { Patients, SafePatients } from '../../../shared/types'
+import type { EligibleVaccines, Patients, SafePatients } from '../../../shared/types'
 
 interface ApiResponse<T> {
   status: string;
@@ -62,6 +62,27 @@ export async function createUser(user: Partial<Patients>): Promise<SafePatients 
   }
 }
 
+
+export async function fetchEligibleVaccines(id: string): Promise<EligibleVaccines | null> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/eligibility/${id}`)
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch vaccine eligiblity for user: ${id}`)
+    }
+
+    const result: ApiResponse<EligibleVaccines | null> = await response.json();
+
+    if (result.status == '200', result.data) {
+      return result.data
+    }
+    return null
+  } catch (err) {
+    console.error("Error fetching vaccine eligibility:", err)
+    throw err
+  }
+}
+
 export async function uploadUserData(file: File): Promise<boolean> {
   const formData = new FormData();
 
@@ -85,7 +106,4 @@ export async function uploadUserData(file: File): Promise<boolean> {
     console.error("Error uploading file")
     throw err
   }
-
-
-
 }

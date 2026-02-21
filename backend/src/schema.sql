@@ -70,4 +70,4 @@ CREATE TABLE IF NOT EXISTS patient_conditions(
     diagnosis_date TEXT,
     is_active INTEGER,
     FOREIGN KEY(condition_id) REFERENCES conditions(id)
-)
+);
