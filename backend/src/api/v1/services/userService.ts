@@ -22,3 +22,5 @@ export const loginUser = async (user: Account) => {
   }
   else throw new Error('Invalid email or password');
 }
+
+export const updateHealthInfo = async()

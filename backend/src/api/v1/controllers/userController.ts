@@ -15,6 +15,19 @@ export const login = async (
   }
 }
 
+export const updateHealthInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    userService.updateHealthInfo(req.body)
+    res.status(204)
+  } catch (err) {
+    next(err)
+  }
+}
+
 export const test = async (
   req: Request,
   res: Response,
