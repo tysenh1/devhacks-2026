@@ -34,6 +34,9 @@ function Navbar() {
             </li>
           </ul>
         </div>
+        <label htmlFor="my-drawer-3" className="btn drawer-button lg:hidden">
+          Open drawer
+        </label>
         <a className="btn btn-ghost text-xl">
           <Syringe /> VaxScene
         </a>
