@@ -12,7 +12,7 @@ interface AccountLogin {
   email: string;
   password: string;
 }
-export const loginUser = async (user: Account) => {
+export const loginUser = async (user: AccountLogin) => {
   const patient: Patients = db.prepare('SELECT * FROM patients WHERE email = ?').get(user.email) as Patients;
 
   if (!patient) {

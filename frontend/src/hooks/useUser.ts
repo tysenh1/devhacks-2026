@@ -28,10 +28,17 @@ export function useUser() {
 
   }
 
+  const uploadUserFile = async (file: File) => {
+    const success: boolean = await userRepo.uploadUserData(file)
+
+    return success
+  }
+
   return ({
     user,
     logInUser,
-    createUser
+    createUser,
+    uploadUserFile
   })
 
 }
