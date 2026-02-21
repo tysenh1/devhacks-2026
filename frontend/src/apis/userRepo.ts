@@ -1,4 +1,4 @@
-import type { Patients, SafePatients } from '../../../shared/types'
+import type { EligibleVaccines, Patients, SafePatients } from '../../../shared/types'
 
 interface ApiResponse<T> {
   status: string;
@@ -59,5 +59,11 @@ export async function createUser(user: Partial<Patients>): Promise<SafePatients 
   } catch (err) {
     console.error("Error creating in user:", err)
     throw err
+  }
+}
+
+export async function fetchEligibleVaccines(id: string): Promise<EligibleVaccines | null> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/eligible`)
   }
 }

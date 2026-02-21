@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react"
-import type { Patients, SafePatients } from "../../../shared/types"
+import type { EligibleVaccines, Patients, SafePatients, VaccineRecords } from "../../../shared/types"
 import * as userRepo from '../apis/userRepo'
 
 export function useUser() {
   const [user, setUser] = useState<SafePatients | null>(null)
-  useEffect(() => {
-    console.log(user)
-  }, [user])
+  const [eligibleVaccines, setEligibleVaccines] = useState<EligibleVaccines | null>(null)
 
   const logInUser = async ({ email, password }: Partial<Patients>) => {
     const patient: Partial<Patients> = { email, password }
@@ -28,10 +26,21 @@ export function useUser() {
 
   }
 
+  const fetchVaccines = async (id: string): Promise<void> => {
+    const vaccines: EligibleVaccines | null = await userRepo.fetchEligibleVaccines(id)
+
+    if (vaccines) {
+      setEligibleVaccines(vaccines)
+    }
+
+  }
+
   return ({
     user,
     logInUser,
-    createUser
+    createUser,
+    eligibleVaccines,
+    setEligibleVaccines
   })
 
 }
