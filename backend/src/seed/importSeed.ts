@@ -33,7 +33,7 @@ async function seedDb() {
 
   db.exec(schema)
 
-  const insertPatient = db.prepare('INSERT INTO patients (id, first_name, last_name, email, dob, password) VALUES (?, ?, ?, ?, ?, ?)');
+  const insertPatient = db.prepare('INSERT INTO patients (id, first_name, last_name, email, dob, password, phin) VALUES (?, ?, ?, ?, ?, ?, ?)');
   const insertVaccine = db.prepare('INSERT INTO vaccines (id, name) VALUES (?, ?)');
   const insertCondition = db.prepare('INSERT INTO conditions (id, condition_name, description) VALUES (?, ?, ?)');
   const insertRule = db.prepare('INSERT INTO vaccine_rules (id, vaccine_id, dose_number, min_age_days, max_age_days, min_interval_days, condition_id) VALUES (?, ?, ?, ?, ?, ?, ?)');
@@ -43,7 +43,7 @@ async function seedDb() {
   const seedTransaction = db.transaction(() => {
     for (const c of SEED_DATA.conditions) insertCondition.run(c.id, c.condition_name, c.description);
     for (const v of SEED_DATA.vaccines) insertVaccine.run(v.id, v.name);
-    for (const p of SEED_DATA.patients) insertPatient.run(p.id, p.first_name, p.last_name, p.email, p.dob, password);
+    for (const p of SEED_DATA.patients) insertPatient.run(p.id, p.first_name, p.last_name, p.email, p.dob, password, p.phin);
     for (const r of SEED_DATA.rules) insertRule.run(r.id, r.vaccine_id, r.dose_number, r.min_age_days, r.max_age_days, r.min_interval_days, r.condition_id);
     for (const pr of SEED_DATA.profiles) insertProfile.run(pr.id, pr.patient_id, pr.patient_address, pr.emergency_contact, pr.family_doctor);
     for (const rec of SEED_DATA.records) insertRecord.run(rec.id, rec.patient_id, rec.vaccine_id, rec.admin_date, rec.dose_number);
@@ -53,7 +53,7 @@ async function seedDb() {
     seedTransaction();
     console.log("DB Seeded")
   } catch (err) {
-    console.error("Seeding FAILED")
+    console.error(`Seeding FAILED: ${err}`)
   } finally {
     db.close()
   }

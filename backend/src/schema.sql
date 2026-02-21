@@ -1,11 +1,12 @@
 -- BASE TABLES
 CREATE TABLE IF NOT EXISTS patients (
-    id TEXT PRIMARY KEY,
+    id BLOB PRIMARY KEY,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
-    email TEXT UNIQUE,
-    dob TEXT,
-    password TEXT NOT NULL
+    email TEXT UNIQUE NOT NULL,
+    dob TEXT NOT NULL,
+    password TEXT NOT NULL,
+    phin TEXT UNIQUE NOT NULL 
 );
 
 CREATE TABLE IF NOT EXISTS conditions (
@@ -63,7 +64,8 @@ CREATE TABLE IF NOT EXISTS patient_medical_profile (
 CREATE TABLE IF NOT EXISTS patient_conditions(
     id TEXT PRIMARY KEY,
     condition_id TEXT,
+    patient_id TEXT,
     diagnosis_date TEXT,
-    is_active TEXT,
-    FOREIGN KEY(condition_id) REFERENCES condition(id)
+    is_active INTEGER,
+    FOREIGN KEY(condition_id) REFERENCES conditions(id)
 )

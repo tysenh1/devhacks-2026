@@ -10,9 +10,9 @@ export const SEED_DATA = {
     { id: '7c9e663f-7407-422a-8ffc-00ef159b6342', name: 'Influenza' }
   ],
   patients: [
-    { id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479', first_name: 'John', last_name: 'Doe', email: 'john@example.com', dob: '1990-01-01' },
-    { id: '2c5e174e-6351-40b3-b3c9-02697841f32a', first_name: 'Jane', last_name: 'Smith', email: 'jane@example.com', dob: '1995-05-15' },
-    { id: '982637f3-79d8-4981-893d-88545e851d7c', first_name: 'Robert', last_name: 'Brown', email: 'robbie@test.com', dob: '2010-08-20' }
+    { id: 'f47ac10b-58cc-4372-a567-0e02b2c3d479', first_name: 'John', last_name: 'Doe', email: 'john@example.com', dob: '1990-01-01', phin: '111 111 111' },
+    { id: '2c5e174e-6351-40b3-b3c9-02697841f32a', first_name: 'Jane', last_name: 'Smith', email: 'jane@example.com', dob: '1995-05-15', phin: '222 222 222' },
+    { id: '982637f3-79d8-4981-893d-88545e851d7c', first_name: 'Robert', last_name: 'Brown', email: 'robbie@test.com', dob: '2010-08-20', phin: '333 333 333' }
   ],
   rules: [
     { id: 'd1b2c3d4-5678-4910-b111-213141516171', vaccine_id: '550e8400-e29b-41d4-a716-446655440000', dose_number: 1, min_age_days: 365, max_age_days: 730, min_interval_days: 0, condition_id: null },
