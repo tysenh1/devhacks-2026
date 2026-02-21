@@ -4,8 +4,11 @@ import * as userRepo from '../apis/userRepo'
 
 export function useUser() {
   const [user, setUser] = useState<SafePatients | null>(null)
-  const [eligibleVaccines, setEligibleVaccines] = useState<EligibleVaccines | null>(null)
+  const [eligibleVaccines, setEligibleVaccines] = useState<EligibleVaccines[] | null>(null)
 
+  useEffect(() => {
+    console.log(user)
+  }, [user])
   const logInUser = async ({ email, password }: Partial<Patients>) => {
     const patient: Partial<Patients> = { email, password }
     const result: SafePatients | null = await userRepo.authenticateUser(patient)
@@ -26,8 +29,10 @@ export function useUser() {
 
   }
 
-  const fetchVaccines = async (id: string): Promise<void> => {
-    const vaccines: EligibleVaccines | null = await userRepo.fetchEligibleVaccines(id)
+  const fetchVaccines = async (): Promise<void> => {
+    console.log("USER", user)
+    if (!user) return;
+    const vaccines: EligibleVaccines[] | null = await userRepo.fetchEligibleVaccines(user.id)
 
     if (vaccines) {
       setEligibleVaccines(vaccines)
@@ -39,6 +44,7 @@ export function useUser() {
     user,
     logInUser,
     createUser,
+    fetchVaccines,
     eligibleVaccines,
     setEligibleVaccines
   })

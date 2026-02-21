@@ -4,7 +4,7 @@ import Navbar from "../components/navbar";
 import VaccineCard from "../components/vaccineCard";
 
 
-function Eligible({ fetchVaccines, eligibleVaccines, user }: { fetchVaccines: any, eligibleVaccines: EligibleVaccines[] | null, user: SafePatients }) {
+function Health({ fetchVaccines, eligibleVaccines, user }: { fetchVaccines: any, eligibleVaccines: EligibleVaccines[] | null, user: SafePatients }) {
 
 
   useEffect(() => {
@@ -40,4 +40,4 @@ function Eligible({ fetchVaccines, eligibleVaccines, user }: { fetchVaccines: an
   );
 }
 
-export default Eligible;
+export default Health;

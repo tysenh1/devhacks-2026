@@ -1,15 +1,15 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useUser } from "../hooks/useUser";
 
-function Login() {
+function Login({ logInUser }: { logInUser: any }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
-  const { logInUser } = useUser()
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault()
 
     logInUser({ email: email, password: password })
+    navigate('/eligible')
   }
 
 
