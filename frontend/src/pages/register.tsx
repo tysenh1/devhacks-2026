@@ -1,155 +1,197 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { postSchemas } from "../validation/registerValidation";
-import Navbar from "../components/navbar";
 
 function Register() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [dateOfBirth, setdateOfBirth] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [phin, setPhin] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  function validateRegister(event: SubmitEvent): void {
+  function validateRegister(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
-    const formData = { firstName, lastName, dateOfBirth, phin };
+    const formData = {
+      firstName,
+      lastName,
+      dateOfBirth,
+      email,
+      password,
+      phin,
+    };
     const { error, value } = postSchemas.validate(formData, {
       abortEarly: false,
       stripUnknown: true,
     });
 
     if (error) {
+      const errorMessages: Record<string, string> = {};
+      error.details.forEach((detail) => {
+        if (detail.path[0]) {
+          errorMessages[detail.path[0] as string] = detail.message;
+        }
+      });
+      setErrors(errorMessages);
       console.log(error);
     } else {
+      setErrors({});
       console.log("Validation Success");
       console.log(value);
     }
   }
 
   return (
-    <>
-      <Navbar />
-      <form action="" onSubmit={validateRegister}>
-        <div className="flex flex-col items-center justify-center">
-          <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-            <legend className="fieldset-legend text-lg">Registration</legend>
-
-            <label className="label">First Name:</label>
-            <input
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              id="firstName"
-              className="input"
-              placeholder="First Name"
-            />
-
-            <label className="label">Last Name:</label>
-            <input
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              id="lastName"
-              className="input"
-              placeholder="Last Name"
-            />
-
-            <label className="label">Date of Birth:</label>
-            <input
-              type="date"
-              value={dateOfBirth}
-              onChange={(e) => setdateOfBirth(e.target.value)}
-              id="dateOfBirth"
-              className="input"
-            />
-
-            <label className="label">Password:</label>
-            <label className="input validator">
-              <svg
-                className="h-[1em] opacity-50"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <g
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2.5"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 
-                  0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path>
-                  <circle
-                    cx="16.5"
-                    cy="7.5"
-                    r=".5"
-                    fill="currentColor"
-                  ></circle>
-                </g>
-              </svg>
-              <input
-                id="password"
-                type="password"
-                required
-                placeholder="Password"
-                minLength={8}
-                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
-              />
-            </label>
-            <p className="validator-hint hidden">
-              Must be more than 8 characters, including
-              <br />
-              At least one number <br />
-              At least one lowercase letter <br />
-              At least one uppercase letter
+    <div className="min-h-screen bg-base-200 flex items-center justify-center px-4 py-8">
+      <div className="card bg-base-100 w-full max-w-md shadow-xl">
+        <div className="card-body">
+          <div className="text-center mb-4">
+            <h1 className="text-3xl font-bold text-primary">VaxScene</h1>
+            <p className="text-sm opacity-70">
+              Create your account to get started.
             </p>
+          </div>
 
-            <label className="label">Email Address:</label>
-            <label className="input validator">
-              <svg
-                className="h-[1em] opacity-50"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <g
-                  strokeLinejoin="round"
-                  strokeLinecap="round"
-                  strokeWidth="2.5"
-                  fill="none"
-                  stroke="currentColor"
-                >
-                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                </g>
-              </svg>
-              <input
-                type="email"
-                id="email"
-                placeholder="example@site.com"
-                required
-              />
-            </label>
-            <div className="validator-hint hidden">
-              Enter valid email address
-            </div>
+          <form onSubmit={validateRegister}>
+            <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
+              <legend className="fieldset-legend">Registration</legend>
 
-            <label className="label">PHIN number:</label>
-            <input
-              type="text"
-              value={phin}
-              onChange={(e) => setPhin(e.target.value)}
-              id="phin"
-              minLength={9}
-              className="input"
-              placeholder="PHIN Number"
-            />
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">First Name</span>
+                </label>
+                <input
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  id="firstName"
+                  className="input input-bordered w-full"
+                  placeholder="Enter your first name"
+                />
+                {errors.firstName && (
+                  <span className="text-red-700 text-sm mt-1">
+                    {errors.firstName}
+                  </span>
+                )}
+              </div>
 
-            <button className="btn btn-primary mt-5">
-              Submit
-            </button>
-          </fieldset>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Last Name</span>
+                </label>
+                <input
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  id="lastName"
+                  className="input input-bordered w-full"
+                  placeholder="Enter your last name"
+                />
+                {errors.lastName && (
+                  <span className="text-red-700 text-sm mt-1">
+                    {errors.lastName}
+                  </span>
+                )}
+              </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Date of Birth</span>
+                </label>
+                <input
+                  type="date"
+                  value={dateOfBirth}
+                  onChange={(e) => setDateOfBirth(e.target.value)}
+                  id="dateOfBirth"
+                  className="input input-bordered w-full"
+                />
+                {errors.dateOfBirth && (
+                  <span className="text-red-700 text-sm mt-1">
+                    {errors.dateOfBirth}
+                  </span>
+                )}
+              </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Email Address</span>
+                </label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  id="email"
+                  className="input input-bordered w-full"
+                  placeholder="example@site.com"
+                />
+                {errors.email && (
+                  <span className="text-red-700 text-sm mt-1">
+                    {errors.email}
+                  </span>
+                )}
+              </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Password</span>
+                </label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  id="password"
+                  className="input input-bordered w-full"
+                  placeholder="Enter your password"
+                />
+                <p className="text-xs opacity-70 mt-1">
+                  Must be 8+ characters with uppercase, lowercase, and number
+                </p>
+                {errors.password && (
+                  <span className="text-red-700 text-sm mt-1">
+                    {errors.password}
+                  </span>
+                )}
+              </div>
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">PHIN Number</span>
+                </label>
+                <input
+                  type="text"
+                  value={phin}
+                  onChange={(e) => setPhin(e.target.value)}
+                  id="phin"
+                  className="input input-bordered w-full"
+                  placeholder="Enter your 9-digit PHIN"
+                />
+                {errors.phin && (
+                  <span className="text-red-700 text-sm mt-1">
+                    {errors.phin}
+                  </span>
+                )}
+              </div>
+
+              <div className="form-control mt-4">
+                <button type="submit" className="btn btn-primary w-full">
+                  Register
+                </button>
+              </div>
+            </fieldset>
+          </form>
+
+          <div className="divider">OR</div>
+
+          <p className="text-center text-sm">
+            Already have an account?{" "}
+            <NavLink to="/login" className="link link-primary font-semibold">
+              Login here
+            </NavLink>
+          </p>
         </div>
-      </form>
-    </>
+      </div>
+    </div>
   );
 }
 
