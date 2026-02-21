@@ -37,6 +37,12 @@ export function useUser() {
     if (vaccines) {
       setEligibleVaccines(vaccines)
     }
+  }
+
+  const uploadUserFile = async (file: File) => {
+    const success: boolean = await userRepo.uploadUserData(file)
+
+    return success
 
   }
 
@@ -47,6 +53,7 @@ export function useUser() {
     fetchVaccines,
     eligibleVaccines,
     setEligibleVaccines
+    uploadUserFile
   })
 
 }
