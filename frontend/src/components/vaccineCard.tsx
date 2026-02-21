@@ -1,4 +1,5 @@
 import DueDate from "./duedate";
+import { Link } from "react-router-dom";
 
 const defaults = {
   title: "Card Title",
@@ -25,9 +26,9 @@ function VaccineCard({
         {dueDate ? <DueDate dueDate={dueDate} /> : ""}
         {isReadMore ? (
           <div className="card-actions justify-end">
-            <button className="btn btn-primary invisible group-hover:visible">
-              Read More
-            </button>
+            <Link to="/vaccine-info">
+              <button className="btn btn-primary ">Read More</button>
+            </Link>
           </div>
         ) : (
           ""
