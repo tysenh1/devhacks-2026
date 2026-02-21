@@ -64,7 +64,8 @@ CREATE TABLE IF NOT EXISTS patient_medical_profile (
 CREATE TABLE IF NOT EXISTS patient_conditions(
     id TEXT PRIMARY KEY,
     condition_id TEXT,
+    patient_id TEXT,
     diagnosis_date TEXT,
-    is_active TEXT,
-    FOREIGN KEY(condition_id) REFERENCES condition(id)
+    is_active INTEGER,
+    FOREIGN KEY(condition_id) REFERENCES conditions(id)
 )
