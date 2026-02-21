@@ -6,7 +6,8 @@ CREATE TABLE IF NOT EXISTS patients (
     email TEXT UNIQUE NOT NULL,
     dob TEXT NOT NULL,
     password TEXT NOT NULL,
-    phin TEXT UNIQUE NOT NULL 
+    phin TEXT UNIQUE NOT NULL,
+
 );
 
 CREATE TABLE IF NOT EXISTS conditions (
@@ -58,6 +59,7 @@ CREATE TABLE IF NOT EXISTS patient_medical_profile (
     patient_address TEXT,
     emergency_contact TEXT,
     family_doctor TEXT,
+    gender TEXT,
     FOREIGN KEY(patient_id) REFERENCES patients(id) ON DELETE CASCADE
 );
 

@@ -12,7 +12,7 @@ interface AccountLogin {
   email: string;
   password: string;
 }
-export const loginUser = async (user: Account) => {
+export const loginUser = async (user: AccountLogin) => {
   const patient: Patients = db.prepare('SELECT * FROM patients WHERE email = ?').get(user.email) as Patients;
 
   if (!patient) {
@@ -65,7 +65,7 @@ INSERT INTO patient_conditions (id, condition_id, patient_id, diagnosis_date, is
 
 }
 
-export const registerUser = async (user: Account) => {
+export const registerUser = async (user: Patients) => {
   try {
     const stmt = db.prepare(`INSERT INTO patients (id, email, password, first_name, last_name, dob, phin) VALUES (?, ?, ?, ?, ?, ?, ?)`);
 
@@ -84,4 +84,38 @@ export const registerUser = async (user: Account) => {
     throw new Error(`${err}`);
   }
 
+}
+
+export const getEligibleVaccines = (patientId: string) => {
+  const patient = db.prepare('SELECT dob FROM patients WHERE id = ?').get(patientId) as Patients;
+  if (!patient) throw new Error("Patient not found");
+
+  // const ageInYears = (new Date().getTime() - new Date(patient.dob).getTime()) / (1000 * 60 * 60 * 24 * 365.25);
+  const ageInYears = (new Date().getTime() - new Date(patient.dob).getTime()) / (1000 * 60 * 60 * 24)
+
+  const allVaccines = db.prepare('SELECT * FROM vaccines JOIN vaccine_rules ON vaccines.id = vaccine_rules.vaccine_id').all();
+  const patientRecords = db.prepare('SELECT * FROM vaccine_records WHERE patient_id = ?').all(patientId);
+
+  return allVaccines.filter(vaccine => {
+    if (ageInYears < vaccine.min_age_days || ageInYears > vaccine.max_age_days) {
+      return false;
+    }
+
+    const previousDoses = patientRecords.filter(r => r.vaccine_id === vaccine.id);
+
+    if (previousDoses.length >= vaccine.dose_number) {
+      return false;
+    }
+
+    if (previousDoses.length > 0) {
+      const lastDoseDate = new Date(Math.max(...previousDoses.map(r => new Date(r.admin_date).getTime())));
+      const daysSinceLastDose = (new Date().getTime() - lastDoseDate.getTime()) / (1000 * 60 * 60 * 24);
+
+      if (daysSinceLastDose < vaccine.min_interval_days) {
+        return false;
+      }
+    }
+
+    return true;
+  });
 }

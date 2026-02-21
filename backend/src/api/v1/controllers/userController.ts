@@ -48,6 +48,22 @@ export const register = async (
   }
 }
 
+export const vaccineEligiblityCheck = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const id: string = req.params.id as string
+    const eligibility = userService.getEligibleVaccines(id)
+    res.status(200).json(successResponse(eligibility))
+  } catch (err) {
+    next(err)
+  }
+}
+
+
+
 export const test = async (
   req: Request,
   res: Response,
