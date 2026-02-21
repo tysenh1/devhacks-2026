@@ -26,7 +26,6 @@ function Register() {
 
   return (
     <>
-      <Navbar />
       <form action="" onSubmit={validateRegister}>
         <div className="flex flex-col items-center justify-center">
           <h1>Registration</h1>
