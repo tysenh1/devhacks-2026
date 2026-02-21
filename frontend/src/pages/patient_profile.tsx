@@ -1,4 +1,4 @@
-function PatientInformation () {
+function PatientInformation() {
   return (
     <div className="flex flex-col items-center justify-center p-6 gap-6">
 

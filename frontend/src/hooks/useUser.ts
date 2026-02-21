@@ -1,9 +1,12 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import type { Patients, SafePatients } from "../../../shared/types"
 import * as userRepo from '../apis/userRepo'
 
 export function useUser() {
   const [user, setUser] = useState<SafePatients | null>(null)
+  useEffect(() => {
+    console.log(user)
+  }, [user])
 
   const logInUser = async ({ email, password }: Partial<Patients>) => {
     const patient: Partial<Patients> = { email, password }
