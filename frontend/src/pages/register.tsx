@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { postSchemas } from "../validation/registerValidation";
+import { useUser } from "../hooks/useUser";
+import type { Patients } from "../../../shared/types";
 
 function Register() {
   const [firstName, setFirstName] = useState("");
@@ -10,6 +12,8 @@ function Register() {
   const [password, setPassword] = useState("");
   const [phin, setPhin] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const { createUser } = useUser()
 
   function validateRegister(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
@@ -26,6 +30,8 @@ function Register() {
       stripUnknown: true,
     });
 
+
+
     if (error) {
       const errorMessages: Record<string, string> = {};
       error.details.forEach((detail) => {
@@ -37,10 +43,20 @@ function Register() {
       console.log(error);
     } else {
       setErrors({});
+      const patient: Partial<Patients> = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        email: formData.email,
+        dob: formData.dateOfBirth,
+        password: formData.password,
+        phin: formData.phin
+      }
+      createUser(patient)
       console.log("Validation Success");
       console.log(value);
     }
   }
+
 
   return (
     <div className="min-h-screen bg-base-200 flex items-center justify-center px-4 py-8">

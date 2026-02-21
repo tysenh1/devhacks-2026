@@ -1,37 +1,37 @@
 import type { Patients, SafePatients } from '../../../shared/types'
 
 interface ApiResponse<T> {
-	status: string;
-	data?: T;
-	message?: string;
+  status: string;
+  data?: T;
+  message?: string;
 }
 
 const API_BASE_URL = 'http://localhost:3000/api/v1';
 
 export async function authenticateUser(user: Partial<Patients>): Promise<SafePatients | null> {
-	try {
-		const response = await fetch(`${API_BASE_URL}/users/login`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(user),
-		});
-		if (!response.ok) {
-			throw new Error(`Failed to login with user: ${user}`);
-		}
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user),
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to login with user: ${user}`);
+    }
 
-		const result: ApiResponse<SafePatients | null> = await response.json()
+    const result: ApiResponse<SafePatients | null> = await response.json()
 
-		if (result.status == '200', result.data) {
-			return result.data
-		}
+    if (result.status == '200', result.data) {
+      return result.data
+    }
 
-		return null
-	} catch (err) {
-		console.error("Error logging in user:", err)
-		throw err
-	}
+    return null
+  } catch (err) {
+    console.error("Error logging in user:", err)
+    throw err
+  }
 }
 
-export async function fetchPatientData(user: 
+// export async function fetchPatientData(user: 

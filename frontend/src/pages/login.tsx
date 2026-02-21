@@ -1,6 +1,18 @@
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { useUser } from "../hooks/useUser";
 
 function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('')
+  const { logInUser } = useUser()
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    logInUser({ email: email, password: password })
+  }
+
+
   return (
     <div className="min-h-screen bg-base-200 flex items-center justify-center px-4">
       <div className="card bg-base-100 w-full max-w-md shadow-xl">
@@ -12,40 +24,46 @@ function Login() {
             </p>
           </div>
 
-          <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
-            <legend className="fieldset-legend">Login</legend>
+          <form onSubmit={handleSubmit}>
+            <fieldset className="fieldset bg-base-200 border-base-300 rounded-box border p-4">
+              <legend className="fieldset-legend">Login</legend>
 
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input
-                type="email"
-                className="input input-bordered w-full"
-                placeholder="Enter your email"
-              />
-            </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Email</span>
+                </label>
+                <input
+                  type="email"
+                  className="input input-bordered w-full"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
 
-            <div className="form-control">
-              <label className="label">
-                <span className="label-text">Password</span>
-              </label>
-              <input
-                type="password"
-                className="input input-bordered w-full"
-                placeholder="Enter your password"
-              />
-              <label className="label">
-                <a className="label-text-alt link link-hover">
-                  Forgot password?
-                </a>
-              </label>
-            </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Password</span>
+                </label>
+                <input
+                  type="password"
+                  className="input input-bordered w-full"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <label className="label">
+                  <a className="label-text-alt link link-hover">
+                    Forgot password?
+                  </a>
+                </label>
+              </div>
 
-            <div className="form-control mt-4">
-              <button className="btn btn-primary w-full">Login</button>
-            </div>
-          </fieldset>
+              <div className="form-control mt-4">
+                <button type="submit" className="btn btn-primary w-full">Login</button>
+              </div>
+            </fieldset>
+          </form>
 
           <div className="divider">OR</div>
 
