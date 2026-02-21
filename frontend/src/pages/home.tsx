@@ -7,7 +7,7 @@ export default function Home() {
       <div className="hero min-h-[80vh] bg-base-200">
         <div className="hero-content text-center">
           <div className="max-w-2xl">
-            <h1 className="text-5xl font-bold text-primary">VaxScene</h1>
+            <h1 className="text-5xl font-bold text-primary">Immunify</h1>
             <p className="py-6 text-lg">
               Your trusted platform for managing vaccinations and immunization
               records. Stay on top of your health with easy scheduling,
@@ -27,7 +27,7 @@ export default function Home() {
 
       {/* Features Section */}
       <div className="py-16 px-4 bg-base-100">
-        <h2 className="text-3xl font-bold text-center mb-12">Why VaxScene?</h2>
+        <h2 className="text-3xl font-bold text-center mb-12">Why Immunify?</h2>
         <div className="flex flex-wrap justify-center gap-8 max-w-6xl mx-auto">
           <div className="card bg-base-200 w-80 shadow-xl">
             <div className="card-body items-center text-center">
@@ -60,10 +60,10 @@ export default function Home() {
       {/* Footer */}
       <footer className="footer footer-center p-10 bg-base-200 text-base-content">
         <div>
-          <p className="font-bold text-lg">VaxScene</p>
+          <p className="font-bold text-lg">Immunify</p>
           <p>Your health, simplified.</p>
           <p className="text-sm opacity-70">
-            © 2026 VaxScene. All rights reserved.
+            © 2026 Immunify. All rights reserved.
           </p>
         </div>
       </footer>

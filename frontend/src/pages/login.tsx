@@ -18,7 +18,7 @@ function Login({ logInUser }: { logInUser: any }) {
       <div className="card bg-base-100 w-full max-w-md shadow-xl">
         <div className="card-body">
           <div className="text-center mb-4">
-            <h1 className="text-3xl font-bold text-primary">VaxScene</h1>
+            <h1 className="text-3xl font-bold text-primary">Immunify</h1>
             <p className="text-sm opacity-70">
               Welcome back! Please login to continue.
             </p>

@@ -13,7 +13,7 @@ function Register() {
   const [phin, setPhin] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const { createUser } = useUser()
+  const { createUser } = useUser();
 
   function validateRegister(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
@@ -29,8 +29,6 @@ function Register() {
       abortEarly: false,
       stripUnknown: true,
     });
-
-
 
     if (error) {
       const errorMessages: Record<string, string> = {};
@@ -49,21 +47,20 @@ function Register() {
         email: formData.email,
         dob: formData.dateOfBirth,
         password: formData.password,
-        phin: formData.phin
-      }
-      createUser(patient)
+        phin: formData.phin,
+      };
+      createUser(patient);
       console.log("Validation Success");
       console.log(value);
     }
   }
-
 
   return (
     <div className="min-h-screen bg-base-200 flex items-center justify-center px-4 py-8">
       <div className="card bg-base-100 w-full max-w-md shadow-xl">
         <div className="card-body">
           <div className="text-center mb-4">
-            <h1 className="text-3xl font-bold text-primary">VaxScene</h1>
+            <h1 className="text-3xl font-bold text-primary">Immunify</h1>
             <p className="text-sm opacity-70">
               Create your account to get started.
             </p>
