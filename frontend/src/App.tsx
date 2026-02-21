@@ -4,6 +4,7 @@ import Login from "./pages/login";
 import Register from "./pages/register";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Eligible from "./pages/eligible";
+import Upcoming from "./pages/upcoming";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="profile" element={<PatientInformation />} />
-        <Route path="eligible" element={<Eligible/>} />
+        <Route path="eligible" element={<Eligible />} />
+        <Route path="upcoming" element={<Upcoming />} />
       </Routes>
     </BrowserRouter>
   );
