@@ -1,0 +1,152 @@
+
+import type { AppType } from 'vite';
+import type { EligibleVaccines, Patients, SafePatients, Upcoming, VaccineRecords } from '../../../shared/types'
+
+
+interface ApiResponse<T> {
+  status: string;
+  data?: T;
+  message?: string;
+}
+
+const API_BASE_URL = 'http://localhost:3000/api/v1';
+
+export async function authenticateUser(user: Partial<Patients>): Promise<SafePatients | null> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user),
+    });
+    console.log(response)
+    if (!response.ok) {
+      throw new Error(`Failed to login with user: ${user}`);
+    }
+
+    const result: ApiResponse<SafePatients | null> = await response.json()
+
+    if (result.status == '200', result.data) {
+      return result.data
+    }
+
+    return null
+  } catch (err) {
+    console.error("Error logging in user:", err)
+    throw err
+  }
+}
+
+export async function createUser(user: Partial<Patients>): Promise<SafePatients | null> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(user),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to register user: ${user}`);
+    }
+
+    const result: ApiResponse<SafePatients | null> = await response.json()
+
+    if (result.status == '200', result.data) {
+      return result.data
+    }
+
+    return null
+  } catch (err) {
+    console.error("Error creating in user:", err)
+    throw err
+  }
+}
+
+export async function fetchEligibleVaccines(id: string): Promise<EligibleVaccines[] | null> {
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/eligibility/${id}`)
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch vaccine eligiblity for user: ${id}`)
+    }
+
+    const result: ApiResponse<EligibleVaccines[] | null> = await response.json();
+
+    if (result.status == '200', result.data) {
+      return result.data
+    }
+    return null
+  } catch (err) {
+    console.error("Error fetching vaccine eligibility:", err)
+    throw err
+  }
+}
+
+export async function fetchUpcoming(id: string): Promise<Upcoming[] | null> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/upcoming/${id}`)
+    if (!response.ok) {
+      throw new Error(`Failed to fetch upcoming vaccinations for user: ${id}`)
+    }
+    const result: ApiResponse<Upcoming[] | null> = await response.json();
+    if (result.status == '200', result.data) {
+      return result.data
+    }
+    return null
+  } catch (err) {
+    console.error("Error fetching vaccine records:", err)
+    throw err
+  }
+}
+
+export async function fetchRecords(id: string): Promise<VaccineRecords | null> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/info/${id}`)
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch vaccine records for user: ${id}`)
+    }
+
+    const result: ApiResponse<VaccineRecords | null> = await response.json();
+
+
+    if (result.status == '200', result.data) {
+      return result.data
+    }
+    return null
+  } catch (err) {
+
+    console.error("Error fetching upcoming vaccinations:", err)
+
+    throw err
+  }
+}
+
+export async function uploadUserData(file: File): Promise<boolean> {
+  const formData = new FormData();
+
+  formData.append('file', file)
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/update`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to upload file`);
+    }
+
+    const status: number = response.status
+
+    return (status == 204)
+
+  } catch (err) {
+    console.error("Error uploading file")
+    throw err
+  }
+}
