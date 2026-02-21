@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS conditions (
 
 CREATE TABLE IF NOT EXISTS vaccines (
     id TEXT PRIMARY KEY,
-    name TEXT UNIQUE NOT NULL
+    name TEXT UNIQUE NOT NULL,
+    description TEXT
 );
 
 CREATE TABLE IF NOT EXISTS vaccine_records (
