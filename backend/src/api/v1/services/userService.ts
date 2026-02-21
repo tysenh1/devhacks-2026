@@ -1,5 +1,6 @@
 import db from '../../../database.ts';
 import argon2 from 'argon2';
+import { type SafePatients, type Patients } from '../../../../../shared/types.ts'
 
 import fs from 'node:fs'
 import * as csv from 'fast-csv'
@@ -8,30 +9,30 @@ import { randomUUID } from 'node:crypto';
 
 
 interface AccountLogin {
-
   email: string;
   password: string;
 }
-
-interface Account extends AccountLogin {
-  first_name: string,
-  last_name: string,
-  dob: Date,
-  phin: string,
-}
-
-export const loginUser = async (user: AccountLogin) => {
-  const patient: AccountLogin = db.prepare('SELECT * FROM patients WHERE email = ?').get(user.email) as AccountLogin;
+export const loginUser = async (user: Account) => {
+  const patient: Patients = db.prepare('SELECT * FROM patients WHERE email = ?').get(user.email) as Patients;
 
   if (!patient) {
     throw new Error('Invalid email or password');
   }
 
 
+
   const isCorrect = await argon2.verify(patient.password, user.password);
+  const safeAccount: SafePatients = {
+    id: patient.id,
+    first_name: patient.first_name,
+    last_name: patient.last_name,
+    email: patient.email,
+    dob: patient.dob,
+    phin: patient.phin
+  }
 
   if (isCorrect) {
-    return patient
+    return safeAccount
   }
   else throw new Error('Invalid email or password');
 }
