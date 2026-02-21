@@ -15,6 +15,18 @@ export const login = async (
   }
 }
 
+export const register = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const user = await userService.registerUser(req.body)
+    res.status(201).json(successResponse(user))
+  } catch (err) {
+    next(err)
+  }
+}
 export const test = async (
   req: Request,
   res: Response,
