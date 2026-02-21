@@ -26,11 +26,11 @@ function Register() {
 
   return (
     <>
+      <Navbar />
       <form action="" onSubmit={validateRegister}>
         <div className="flex flex-col items-center justify-center">
-          <h1>Registration</h1>
           <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-            <legend className="fieldset-legend"></legend>
+            <legend className="fieldset-legend">Registration</legend>
 
             <label className="label">First Name:</label>
             <input
@@ -39,7 +39,7 @@ function Register() {
               onChange={(e) => setFirstName(e.target.value)}
               id="firstName"
               className="input"
-              placeholder="My awesome page"
+              placeholder="First Name"
             />
 
             <label className="label">Last Name:</label>
@@ -49,7 +49,7 @@ function Register() {
               onChange={(e) => setLastName(e.target.value)}
               id="lastName"
               className="input"
-              placeholder="my-awesome-page"
+              placeholder="Last Name"
             />
 
             <label className="label">Date of Birth:</label>
@@ -139,11 +139,11 @@ function Register() {
               id="phin"
               minLength={9}
               className="input"
-              placeholder="my-awesome-page"
+              placeholder="PHIN Number"
             />
 
             <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl:btn btn-neutral">
-              Responsive
+              Submit
             </button>
           </fieldset>
         </div>
