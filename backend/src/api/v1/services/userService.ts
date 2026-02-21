@@ -156,3 +156,41 @@ export const getEligibleVaccines = (patientId: string) => {
     return true;
   });
 }
+
+export const getUpcoming = (patientId: string) => {
+  const patient = db.prepare('SELECT dob FROM patients WHERE id = ?').get(patientId) as Patients;
+  if (!patient) throw new Error("Patient not found");
+
+  const dob = new Date(patient.dob);
+  const now = new Date();
+  const ageInDays = Math.floor((now.getTime() - dob.getTime()) / (1000 * 60 * 60 * 24));
+
+  const query = db.prepare(`
+      SELECT 
+        v.name as vaccine_name,
+        vr.dose_number,
+        vr.min_age_days,
+        vr.max_age_days,
+        vr.min_interval_days
+      FROM vaccine_rules vr
+      JOIN vaccines v ON vr.vaccine_id = v.id
+      WHERE 
+        vr.dose_number = (
+          SELECT COUNT(*) + 1 
+          FROM vaccine_records 
+          WHERE patient_id = ? AND vaccine_id = v.id
+        )
+        AND ? >= vr.min_age_days 
+        AND ? <= vr.max_age_days
+        AND NOT EXISTS (
+          SELECT 1 FROM vaccine_records vrec 
+          WHERE vrec.patient_id = ? 
+          AND vrec.vaccine_id = vr.vaccine_id 
+          AND vrec.dose_number = vr.dose_number
+        )
+      ORDER BY v.name ASC
+    `);
+
+  return query.all(patientId, ageInDays, ageInDays, patientId);
+
+}

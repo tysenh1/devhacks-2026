@@ -3,7 +3,7 @@ import type { EligibleVaccines, SafePatients } from "../../../shared/types";
 import Navbar from "../components/navbar";
 import VaccineCard from "../components/vaccineCard";
 
-
+// @ts-ignore
 function Eligible({ fetchVaccines, eligibleVaccines, user }: { fetchVaccines: any, eligibleVaccines: EligibleVaccines[] | null, user: SafePatients }) {
 
 

@@ -17,6 +17,8 @@ router.get('/info/:id', userController.getHealthInfo)
 
 router.get('/eligibility/:id', userController.vaccineEligiblityCheck)
 
+router.get('/upcoming/:id', userController.getUpcoming)
+
 router.get('/', userController.test)
 
 export default router

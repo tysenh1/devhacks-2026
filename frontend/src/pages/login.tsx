@@ -9,7 +9,7 @@ function Login({ logInUser }: { logInUser: any }) {
     e.preventDefault()
 
     logInUser({ email: email, password: password })
-    navigate('/eligible')
+    navigate('/upcoming')
   }
 
 

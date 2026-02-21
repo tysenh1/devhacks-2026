@@ -62,3 +62,12 @@ export interface PatientConditions {
   diagnosis_date: string;
   is_active: string;
 }
+
+export interface Upcoming {
+  vaccine_name: string;
+  dose_number: 2;
+  min_age_days: number;
+  max_age_days: number;
+  min_interval_days: number;
+
+}

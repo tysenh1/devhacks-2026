@@ -1,4 +1,7 @@
-import type { EligibleVaccines, Patients, SafePatients, VaccineRecords } from '../../../shared/types'
+
+import type { AppType } from 'vite';
+import type { EligibleVaccines, Patients, SafePatients, Upcoming, VaccineRecords } from '../../../shared/types'
+
 
 interface ApiResponse<T> {
   status: string;
@@ -83,6 +86,23 @@ export async function fetchEligibleVaccines(id: string): Promise<EligibleVaccine
   }
 }
 
+export async function fetchUpcoming(id: string): Promise<Upcoming[] | null> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/upcoming/${id}`)
+    if (!response.ok) {
+      throw new Error(`Failed to fetch upcoming vaccinations for user: ${id}`)
+    }
+    const result: ApiResponse<Upcoming[] | null> = await response.json();
+    if (result.status == '200', result.data) {
+      return result.data
+    }
+    return null
+  } catch (err) {
+    console.error("Error fetching vaccine records:", err)
+    throw err
+  }
+}
+
 export async function fetchRecords(id: string): Promise<VaccineRecords | null> {
   try {
     const response = await fetch(`${API_BASE_URL}/users/info/${id}`)
@@ -93,12 +113,15 @@ export async function fetchRecords(id: string): Promise<VaccineRecords | null> {
 
     const result: ApiResponse<VaccineRecords | null> = await response.json();
 
+
     if (result.status == '200', result.data) {
       return result.data
     }
     return null
   } catch (err) {
-    console.error("Error fetching vaccine records:", err)
+
+    console.error("Error fetching upcoming vaccinations:", err)
+
     throw err
   }
 }
