@@ -35,6 +35,20 @@ export const updateHealthInfo = async (
   }
 }
 
+export const getHealthInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { email } = req.params
+    const info = await userService.getHealthInfo(email)
+    res.status(200).json(info);
+  } catch (err) {
+    next(err)
+  }
+}
+
 export const register = async (
   req: Request,
   res: Response,
@@ -47,6 +61,22 @@ export const register = async (
     next(err)
   }
 }
+
+export const vaccineEligiblityCheck = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const id: string = req.params.id as string
+    const eligibility = userService.getEligibleVaccines(id)
+    res.status(200).json(successResponse(eligibility))
+  } catch (err) {
+    next(err)
+  }
+}
+
+
 
 export const test = async (
   req: Request,
