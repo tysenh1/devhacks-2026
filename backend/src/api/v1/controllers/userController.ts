@@ -8,10 +8,17 @@ export const login = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-
     const user = await userService.loginUser(req.body)
     res.status(200).json(successResponse(user))
   } catch (err) {
     next(err)
   }
+}
+
+export const test = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  res.status(200).json(successResponse("rjs", ';gihdriuhdv;iurdh'))
 }

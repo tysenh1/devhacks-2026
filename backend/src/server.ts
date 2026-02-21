@@ -18,7 +18,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send({ message: "Backend is online!" });
 });
 
-app.get('api/v1/users', userRoutes)
+app.use('/api/v1/users', userRoutes)
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on PORT ${PORT}`);

@@ -14,6 +14,7 @@ export const loginUser = async (user: Account) => {
     throw new Error('Invalid email or password');
   }
 
+
   const isCorrect = await argon2.verify(patient.password, user.password);
 
   if (isCorrect) {
