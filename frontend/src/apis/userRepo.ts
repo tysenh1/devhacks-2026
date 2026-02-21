@@ -62,8 +62,8 @@ export async function createUser(user: Partial<Patients>): Promise<SafePatients 
   }
 }
 
+export async function fetchEligibleVaccines(id: string): Promise<EligibleVaccines[] | null> {
 
-export async function fetchEligibleVaccines(id: string): Promise<EligibleVaccines | null> {
   try {
     const response = await fetch(`${API_BASE_URL}/users/eligibility/${id}`)
 
@@ -71,7 +71,7 @@ export async function fetchEligibleVaccines(id: string): Promise<EligibleVaccine
       throw new Error(`Failed to fetch vaccine eligiblity for user: ${id}`)
     }
 
-    const result: ApiResponse<EligibleVaccines | null> = await response.json();
+    const result: ApiResponse<EligibleVaccines[] | null> = await response.json();
 
     if (result.status == '200', result.data) {
       return result.data
