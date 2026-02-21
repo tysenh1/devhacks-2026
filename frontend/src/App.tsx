@@ -1,7 +1,8 @@
+
 import Login from "./pages/login";
 
 function App() {
-  return <Login />;
+  return <Home />;
 }
 
 export default App;
