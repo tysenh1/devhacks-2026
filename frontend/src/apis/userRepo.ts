@@ -61,3 +61,31 @@ export async function createUser(user: Partial<Patients>): Promise<SafePatients 
     throw err
   }
 }
+
+export async function uploadUserData(file: File): Promise<boolean> {
+  const formData = new FormData();
+
+  formData.append('file', file)
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/users/update`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to upload file`);
+    }
+
+    const status: number = response.status
+
+    return (status == 204)
+
+  } catch (err) {
+    console.error("Error uploading file")
+    throw err
+  }
+
+
+
+}

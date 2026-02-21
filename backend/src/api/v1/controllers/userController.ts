@@ -35,6 +35,20 @@ export const updateHealthInfo = async (
   }
 }
 
+export const getHealthInfo = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { email } = req.params
+    const info = await userService.getHealthInfo(email)
+    res.status(200).json(info);
+  } catch (err) {
+    next(err)
+  }
+}
+
 export const register = async (
   req: Request,
   res: Response,
