@@ -5,6 +5,7 @@ import * as userRepo from '../apis/userRepo'
 export function useUser() {
   const [user, setUser] = useState<SafePatients | null>(null)
   const [eligibleVaccines, setEligibleVaccines] = useState<EligibleVaccines[] | null>(null)
+  const [userRecords, setUserRecords] = useState<VaccineRecords | null>(null)
 
   useEffect(() => {
     console.log(user)
@@ -39,6 +40,13 @@ export function useUser() {
     }
   }
 
+  const fetchRecords = async (id: string): Promise<void> => {
+    const vaccines: VaccineRecords | null = await userRepo.fetchRecords(id)
+    if (vaccines) {
+      setUserRecords(vaccines)
+    }
+  }
+
   const uploadUserFile = async (file: File) => {
     const success: boolean = await userRepo.uploadUserData(file)
 
@@ -52,8 +60,11 @@ export function useUser() {
     createUser,
     fetchVaccines,
     eligibleVaccines,
-    setEligibleVaccines
-    uploadUserFile
+    setEligibleVaccines,
+    uploadUserFile,
+    fetchVaccines,
+    fetchRecords,
+    userRecords
   })
 
 }
