@@ -8,7 +8,11 @@ const router: Router = express.Router();
 
 router.post('/login', userController.login)
 
+
 router.post('/update', upload.single('file'), userController.updateHealthInfo)
+
+router.post('/register', userController.register)
+
 
 router.get('/', userController.test)
 

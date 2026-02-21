@@ -1,11 +1,12 @@
 -- BASE TABLES
 CREATE TABLE IF NOT EXISTS patients (
-    id TEXT PRIMARY KEY,
+    id BLOB PRIMARY KEY,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
-    email TEXT UNIQUE,
-    dob TEXT,
-    password TEXT NOT NULL
+    email TEXT UNIQUE NOT NULL,
+    dob TEXT NOT NULL,
+    password TEXT NOT NULL,
+    phin TEXT UNIQUE NOT NULL 
 );
 
 CREATE TABLE IF NOT EXISTS conditions (

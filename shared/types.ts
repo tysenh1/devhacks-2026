@@ -1,10 +1,20 @@
-export interface Patients {
+export interface SafePatients {
   id: string;
   first_name: string;
   last_name: string;
   email: string;
   dob: string;
+  phin: string;
+}
+
+export interface Patients extends SafePatients {
   password: string;
+}
+
+export interface Allergies {
+  id: string;
+  patient_id: string;
+  vaccine_id: string;
 }
 
 export interface Conditions {
