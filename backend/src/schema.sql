@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS patients (
     email TEXT UNIQUE NOT NULL,
     dob TEXT NOT NULL,
     password TEXT NOT NULL,
-    phin TEXT UNIQUE NOT NULL,
+    phin TEXT UNIQUE NOT NULL
 
 );
 
@@ -70,4 +70,4 @@ CREATE TABLE IF NOT EXISTS patient_conditions(
     diagnosis_date TEXT,
     is_active INTEGER,
     FOREIGN KEY(condition_id) REFERENCES conditions(id)
-)
+);
