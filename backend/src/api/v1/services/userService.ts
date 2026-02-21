@@ -65,7 +65,7 @@ INSERT INTO patient_conditions (id, condition_id, patient_id, diagnosis_date, is
 
 }
 
-export const registerUser = async (user: Account) => {
+export const registerUser = async (user: Patients) => {
   try {
     const stmt = db.prepare(`INSERT INTO patients (id, email, password, first_name, last_name, dob, phin) VALUES (?, ?, ?, ?, ?, ?, ?)`);
 
@@ -78,8 +78,17 @@ export const registerUser = async (user: Account) => {
     if (result.changes == 0) {
       throw new Error("Failed to insert into table")
     }
+    const safeUser: SafePatients = {
+      id: id,
+      email: user.email,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      dob: user.dob,
+      phin: user.phin
+    }
 
-    return user
+    return safeUser
+
   } catch (err) {
     throw new Error(`${err}`);
   }
