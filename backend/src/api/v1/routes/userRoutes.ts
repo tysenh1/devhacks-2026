@@ -1,11 +1,14 @@
 import express, { Router } from 'express';
 import * as userController from '../controllers/userController.ts'
+import multer from 'multer';
+
+const upload = multer({ dest: 'uploads/' })
 
 const router: Router = express.Router();
 
 router.post('/login', userController.login)
 
-router.post('/update', userController.updateHealthInfo)
+router.post('/update', upload.single('file'), userController.updateHealthInfo)
 
 router.get('/', userController.test)
 
